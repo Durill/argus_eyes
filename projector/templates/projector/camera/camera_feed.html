@@ -1,0 +1,59 @@
+{% extends "../base.html" %}
+<!--    <style>-->
+<!--        * {-->
+<!--            box-sizing: border-box;-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--        }-->
+
+<!--        body {-->
+<!--            background: #111;-->
+<!--            color: white;-->
+<!--            font-family: Arial, Helvetica, sans-serif;-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            min-height: 100vh;-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            width: min(1000px, 95%);-->
+<!--            text-align: center;-->
+<!--        }-->
+
+<!--        h1 {-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+
+<!--        .camera-container {-->
+<!--            background: #222;-->
+<!--            border-radius: 12px;-->
+<!--            padding: 15px;-->
+<!--            box-shadow: 0 0 20px rgba(0, 0, 0, .5);-->
+<!--        }-->
+
+<!--        img {-->
+<!--            width: 100%;-->
+<!--            max-width: 900px;-->
+<!--            border-radius: 8px;-->
+<!--            border: 2px solid #444;-->
+<!--        }-->
+
+<!--    </style>-->
+
+{% block title %}Camera Feed{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>📹 Live Camera Feed</h1>
+
+    <div class="camera-container">
+        <img
+                id="camera-feed"
+                src="{% url 'video_feed' %}"
+                alt="Live Camera Feed"
+        >
+
+    </div>
+</div>
+{% endblock %}

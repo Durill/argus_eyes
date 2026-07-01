@@ -1,0 +1,22 @@
+{% extends "../base.html" %}
+
+{% block title %}Cameras{% endblock %}
+
+{% block content %}
+<h1>Camera List</h1>
+{% if camera_list %}
+<ul>
+    {% for camera in camera_list %}
+    <li>
+        <a href="{{ camera.ip_address }}">{{camera.name}}</a>
+        <a href="{% url 'edit_camera' camera.id %}">Edit</a>
+        <a href="{% url 'delete_camera' camera.id %}">Remove</a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No cameras to show</p>
+{% endif %}
+<a href="{% url 'create_camera' %}">Add new Camera</a>
+{% endblock %}
+
