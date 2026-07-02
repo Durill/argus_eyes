@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
-from projector.models import CreateCameraForm
+from projector.forms import CameraForm
 
 
 class CameraCreateCommand:
@@ -13,11 +13,11 @@ class CameraCreateCommand:
         if request.method == 'POST':
             return cls._save_camera(request)
         else:
-            return cls._render_form(request, {'form': CreateCameraForm()})
+            return cls._render_form(request, {'form': CameraForm()})
 
     @classmethod
     def _save_camera(cls, request) -> HttpResponse:
-        form = CreateCameraForm(request.POST)
+        form = CameraForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('cameras')

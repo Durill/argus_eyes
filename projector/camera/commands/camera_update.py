@@ -1,7 +1,9 @@
+from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
-from projector.models import Camera, EditCameraForm
+from projector.forms import CameraForm
+from projector.models import Camera
 
 
 class CameraUpdateCommand:
@@ -9,7 +11,7 @@ class CameraUpdateCommand:
     # TODO: create DIContainer to introduce object of Command and change class methods to instance methods
 
     @classmethod
-    def execute(cls, request, id: int):
+    def execute(cls, request: WSGIRequest, id: int):
         camera = get_object_or_404(Camera, pk=id)
 
         if request.method == 'POST':
@@ -20,7 +22,7 @@ class CameraUpdateCommand:
 
     @classmethod
     def _update_camera(cls, camera: Camera, request) -> HttpResponse:
-        form = EditCameraForm(request.POST)
+        form = CameraForm(request.POST)
 
         if form.is_valid():
             cls._update_camera_object(camera, **form.cleaned_data)
@@ -42,8 +44,8 @@ class CameraUpdateCommand:
         return render(request, 'projector/camera/camera_edit.html', context)
 
     @classmethod
-    def _fill_out_form(cls, camera: Camera) -> EditCameraForm:
-        return EditCameraForm(
+    def _fill_out_form(cls, camera: Camera) -> CameraForm:
+        return CameraForm(
             initial={
                 'name': camera.name,
                 'ip_address': camera.ip_address,

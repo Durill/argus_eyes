@@ -1,5 +1,6 @@
 from django.http import HttpResponse, StreamingHttpResponse
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import generic
 
 from projector.feed.feed_generator import generate_feed
@@ -25,12 +26,14 @@ def video_feed(request):
 class CameraListView(generic.ListView):
     model = Camera
     context_object_name = 'camera_list'
-    queryset = Camera.objects.all()
     template_name = 'projector/camera/camera_list.html'
+
+    def get_queryset(self):
+        return Camera.objects.all()
 
 
 class CameraDeleteView(generic.DeleteView):
     model = Camera
     context_object_name = 'camera'
-    success_url = '../'
+    success_url = reverse_lazy('cameras')
     template_name = 'projector/camera/camera_delete.html'
